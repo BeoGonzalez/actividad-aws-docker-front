@@ -25,9 +25,9 @@ jobs:
 
       - name: Build and Push Images
         run: |
-          docker build -t app-back .
-          docker tag app-back:latest ${{ steps.login-ecr.outputs.registry }}/app-back:latest
-          docker push ${{ steps.login-ecr.outputs.registry }}/app-back:latest
+          docker build -t app-front .
+          docker tag app-front:latest ${{ steps.login-ecr.outputs.registry }}/app-front:latest
+          docker push ${{ steps.login-ecr.outputs.registry }}/app-front:latest
           
   deploy:
     needs: build-and-push
@@ -55,8 +55,8 @@ jobs:
 
               # 3. Pull y despliegue
               echo "Descargando imágenes..."
-              docker compose --profile backend pull
-              docker compose --profile backend up -d --force-recreate
+              docker compose --profile frontend pull
+              docker compose --profile frontend up -d --force-recreate
         env:
           # PASO 3: Definimos los valores de esas variables
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
